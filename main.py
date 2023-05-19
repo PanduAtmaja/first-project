@@ -1,9 +1,26 @@
-meme_dict = {
-            "CRINGE": "Sesuatu yang sangat aneh atau memalukan",
-            "LOL": "Tanggapan umum terhadap sesuatu yang lucu",
-            }
+import discord
 
-word = input("Ketik kata yang tidak Kamu mengerti (gunakan huruf kapital semua!): ")
+# Variabel intents menyimpan hak istimewa bot
+Intents = discord.Intents.default()
+# Mengaktifkan hak istimewa message-reading
+Intents.message_content = True
+# Membuat bot di variabel klien dan mentransfernya hak istimewa
+client = discord.Client(Intents=Intents)
 
-if word in meme_dict.keys():
-    print(meme_dict[word])
+
+@client.event
+async def on_ready():
+    print(f'Kita telah masuk sebagai {client.user}')
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('$halo'):
+        await message.channel.send("Hi!")
+    elif message.content.startswith('$bye'):
+        await message.channel.send("\\U0001f642")
+    else:
+        await message.channel.send(message.content)
+
+client.run("MTEwMzk4MTc3MDA0MDQxODMxNQ.GiiHW9.0V1130NWAyhBbKWS6Siea2XvKXi2Lz-IavuHao")
